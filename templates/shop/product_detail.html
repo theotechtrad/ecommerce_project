@@ -1,0 +1,137 @@
+<!-- templates/shop/product_detail.html -->
+{% extends 'shop/base.html' %}
+
+{% block title %}{{ product.name }} - ShopAI{% endblock %}
+
+{% block content %}
+<div style="background: white; padding: 2rem; border-radius: 10px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <!-- Product Image -->
+        <div>
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+            {% else %}
+                {% if 'headphone' in product.name.lower or 'speaker' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'watch' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 't-shirt' in product.name.lower or 'shirt' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'jeans' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'shoe' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'laptop' in product.name.lower or 'stand' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'book' in product.name.lower or 'python' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'blender' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'bottle' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'yoga' in product.name.lower or 'mat' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'dumbbell' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% elif 'coffee' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=500&h=500&fit=crop" alt="{{ product.name }}" style="width: 100%; border-radius: 10px;">
+                {% endif %}
+            {% endif %}
+        </div>
+        
+        <!-- Product Info -->
+        <div>
+            <span style="background: #667eea; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">
+                {{ product.category.name }}
+            </span>
+            
+            <h1 style="font-size: 2rem; margin: 1rem 0;">{{ product.name }}</h1>
+            
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 1rem;">
+                {{ product.description }}
+            </p>
+            
+            <div style="margin: 1rem 0;">
+                <p><strong>Rating:</strong> ⭐ {{ product.rating }}/5.0</p>
+                <p><strong>Stock:</strong> {{ product.stock }} available</p>
+            </div>
+            
+            <p style="font-size: 2rem; color: #e74c3c; font-weight: bold; margin: 1.5rem 0;">
+                ₹{{ product.price }}
+            </p>
+            
+            {% if user.is_authenticated %}
+                <a href="{% url 'add_to_cart' product.id %}" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    🛒 Add to Cart
+                </a>
+                
+                <div style="margin-top: 2rem;">
+                    <h3>Rate this product:</h3>
+                    <form method="post" action="{% url 'product_feedback' product.id %}" style="margin-top: 1rem;">
+                        {% csrf_token %}
+                        <button type="submit" name="feedback" value="like" class="btn">👍 Like</button>
+                        <button type="submit" name="feedback" value="dislike" class="btn" style="background: #95a5a6; margin-left: 0.5rem;">👎 Dislike</button>
+                    </form>
+                </div>
+            {% else %}
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px;">
+                    <p><strong>Login to purchase this product</strong></p>
+                    <a href="{% url 'login' %}" class="btn" style="margin-top: 1rem;">Login</a>
+                    <a href="{% url 'register' %}" class="btn" style="margin-top: 1rem; background: #95a5a6; margin-left: 0.5rem;">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if similar_products %}
+<div style="margin-top: 3rem;">
+    <h2 style="color: white; margin-bottom: 1rem;">Similar Products</h2>
+    <div class="product-grid">
+        {% for similar in similar_products %}
+        <div class="product-card">
+            {% if similar.image %}
+                <img src="{{ similar.image.url }}" alt="{{ similar.name }}" class="product-image">
+            {% else %}
+                {% if 'headphone' in similar.name.lower or 'speaker' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'watch' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 't-shirt' in similar.name.lower or 'shirt' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'jeans' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'shoe' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'laptop' in similar.name.lower or 'stand' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'book' in similar.name.lower or 'python' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'blender' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'bottle' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'yoga' in similar.name.lower or 'mat' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'dumbbell' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% elif 'coffee' in similar.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=250&h=200&fit=crop" alt="{{ similar.name }}" class="product-image">
+                {% endif %}
+            {% endif %}
+            <div class="product-info">
+                <h3 class="product-name">{{ similar.name }}</h3>
+                <p style="color: #7f8c8d; margin: 0.5rem 0;">{{ similar.description|truncatewords:10 }}</p>
+                <p class="product-price">₹{{ similar.price }}</p>
+                <a href="{% url 'product_detail' similar.id %}" class="btn" style="width: 100%; text-align: center; display: block; margin-top: 1rem;">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

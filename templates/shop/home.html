@@ -1,0 +1,153 @@
+<!-- templates/shop/home.html -->
+{% extends 'shop/base.html' %}
+
+{% block title %}Home - AI-Powered E-Commerce{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 3rem 0; background: white; border-radius: 10px; margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; color: #2c3e50; margin-bottom: 1rem;">
+        Welcome to ShopAI!
+    </h1>
+    <p style="font-size: 1.2rem; color: #7f8c8d; max-width: 600px; margin: 0 auto;">
+        Discover personalized product recommendations powered by AI and machine learning
+    </p>
+</div>
+
+{% if recommended_products %}
+<section style="margin-bottom: 3rem;">
+    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: #2c3e50;">
+          RECOMMENDED FOR YOU
+    </h2>
+    <div class="product-grid">
+        {% for product in recommended_products %}
+        <div class="product-card">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+                {% if 'headphone' in product.name.lower or 'speaker' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'watch' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 't-shirt' in product.name.lower or 'shirt' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'jeans' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'shoe' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'laptop' in product.name.lower or 'stand' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'book' in product.name.lower or 'python' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'blender' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'bottle' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'yoga' in product.name.lower or 'mat' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'dumbbell' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'coffee' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% endif %}
+            {% endif %}
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p style="color: #7f8c8d; margin: 0.5rem 0;">{{ product.description|truncatewords:10 }}</p>
+                <p class="product-price">₹{{ product.price }}</p>
+                <div style="margin-top: 1rem;">
+                    <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section>
+    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; color: #2c3e50;">
+          FEATURED PRODUCTS 
+    </h2>
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+                {% if 'headphone' in product.name.lower or 'speaker' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'watch' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 't-shirt' in product.name.lower or 'shirt' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'jeans' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'shoe' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'laptop' in product.name.lower or 'stand' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'book' in product.name.lower or 'python' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'blender' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1585515320310-259814833e62?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'bottle' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'yoga' in product.name.lower or 'mat' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'dumbbell' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% elif 'coffee' in product.name.lower %}
+                    <img src="https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=250&h=200&fit=crop" alt="{{ product.name }}" class="product-image">
+                {% endif %}
+            {% endif %}
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p style="color: #7f8c8d; margin: 0.5rem 0;">{{ product.description|truncatewords:10 }}</p>
+                <p class="product-price">₹{{ product.price }}</p>
+                <div style="margin-top: 1rem;">
+                    <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<div style="text-align: center; margin: 3rem 0;">
+    <a href="{% url 'product_list' %}" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">
+        Browse All Products →
+    </a>
+</div>
+
+<section style="background: white; padding: 2rem; border-radius: 10px; margin-top: 3rem;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #2c3e50;">
+          How Our AI Works
+    </h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;"></div>
+            <h3 style="color: #3498db;">Track Your Behavior</h3>
+            <p style="color: #7f8c8d;">We analyze what you view and purchase</p>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;"></div>
+            <h3 style="color: #3498db;">Machine Learning</h3>
+            <p style="color: #7f8c8d;">Advanced algorithms find patterns</p>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;"></div>
+            <h3 style="color: #3498db;">Personalized Results</h3>
+            <p style="color: #7f8c8d;">Get recommendations just for you</p>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;"></div>
+            <h3 style="color: #3498db;">Cython Optimized</h3>
+            <p style="color: #7f8c8d;">Lightning-fast performance</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

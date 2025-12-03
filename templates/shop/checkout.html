@@ -1,0 +1,38 @@
+<!-- ============================================ -->
+<!-- templates/shop/checkout.html -->
+<!-- ============================================ -->
+{% extends 'shop/base.html' %}
+{% block content %}
+<h1>Checkout</h1>
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+    <div style="background: white; padding: 2rem; border-radius: 10px;">
+        <h2>Order Summary</h2>
+        {% for item in cart_items %}
+        <div style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid #eee;">
+            <div>
+                <strong>{{ item.product.name }}</strong>
+                <p style="color: #7f8c8d;">Quantity: {{ item.quantity }}</p>
+            </div>
+            <p style="font-weight: bold;">₹{{ item.get_subtotal }}</p>
+        </div>
+        {% endfor %}
+        <div style="display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.3rem;">
+            <strong>Total:</strong>
+            <strong style="color: #e74c3c;">₹{{ total }}</strong>
+        </div>
+    </div>
+    
+    <div style="background: white; padding: 2rem; border-radius: 10px;">
+        <h2>Payment</h2>
+        <form method="post">
+            {% csrf_token %}
+            <p style="margin: 1rem 0; color: #7f8c8d;">
+                This is a demo. No actual payment will be processed.
+            </p>
+            <button type="submit" class="btn" style="width: 100%; font-size: 1.1rem;">
+                Place Order
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

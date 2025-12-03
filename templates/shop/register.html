@@ -1,0 +1,64 @@
+<!-- templates/shop/register.html -->
+{% extends 'shop/base.html' %}
+
+{% block title %}Register - ShopAI{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 2rem auto; background: white; padding: 3rem; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: #333;">Create Account</h1>
+    
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div style="padding: 1rem; margin-bottom: 1rem; background-color: #f8d7da; border-radius: 5px; color: #721c24;">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div style="padding: 1rem; margin-bottom: 1rem; background-color: #d4edda; border-radius: 5px; color: #155724;">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Username</label>
+            <input type="text" name="username" required 
+                   style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;"
+                   placeholder="Choose a username">
+            <small style="color: #666; font-size: 0.85rem;">Letters, numbers, and @/./+/-/_ only</small>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Password</label>
+            <input type="password" name="password1" required 
+                   style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;"
+                   placeholder="Create a password">
+            <small style="color: #666; font-size: 0.85rem; display: block; margin-top: 0.5rem;">
+                • At least 8 characters<br>
+                • Not too similar to username<br>
+                • Not too common<br>
+                • Not entirely numeric
+            </small>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Confirm Password</label>
+            <input type="password" name="password2" required 
+                   style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;"
+                   placeholder="Re-enter your password">
+        </div>
+        
+        <button type="submit" class="btn" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-top: 1rem;">
+            Register
+        </button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 2rem; color: #666;">
+        Already have an account? <a href="{% url 'login' %}" style="color: #667eea; text-decoration: none; font-weight: bold;">Login here</a>
+    </p>
+</div>
+{% endblock %}

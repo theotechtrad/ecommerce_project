@@ -1,0 +1,15 @@
+<!-- ============================================ -->
+<!-- templates/shop/order_success.html -->
+<!-- ============================================ -->
+{% extends 'shop/base.html' %}
+{% block content %}
+<div style="text-align: center; padding: 3rem; background: white; border-radius: 10px;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
+    <h1 style="color: #27ae60;">Order Placed Successfully!</h1>
+    <p style="font-size: 1.2rem; margin: 1rem 0;">Order #{{ order.id }}</p>
+    <p style="color: #7f8c8d;">Total Amount: ₹{{ order.total_amount }}</p>
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'home' %}" class="btn">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}

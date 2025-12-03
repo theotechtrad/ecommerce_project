@@ -1,0 +1,8 @@
+echo "venv/
+*.pyc
+__pycache__/
+db.sqlite3
+*.pyd
+*.so
+build/
+*.egg-info/" > .gitignore
