@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-*rwnsaz(r8dk5xwd6tp398#+_-n0ahdj0g)s44pwln!+@ul4qn
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']   # Allow all hosts for now to deploy on railway.com
 
 # Application definition
 INSTALLED_APPS = [
