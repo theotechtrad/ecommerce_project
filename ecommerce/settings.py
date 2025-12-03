@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-*rwnsaz(r8dk5xwd6tp398#+_-n0ahdj0g)s44pwln!+@ul4qn
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']   # Allow all hosts for now to deploy on railway.com
+ALLOWED_HOSTS = [] 
 
 # Application definition
 INSTALLED_APPS = [
@@ -25,7 +25,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Added this line for deployment in railway.com
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
